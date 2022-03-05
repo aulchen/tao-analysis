@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\newenvironment{proof}{\paragraph{Proof:}}{\hfill$\square$}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+
+\newcommand{\B}{\mathbb{B}}
+
+\newcommand{\vol}{\text{vol}}
+
+\author{Arthur Chen}
+\title{Chapter 7 Lebesgue Measure}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{7.2 Outer Measure}
+
+\subsection*{Exercise 7.2.1}
+
+Prove Lemma 7.2.5. Show that outer measure has the following six properties:
+
+\subsubsection*{v - Empty set}
+
+The empty set $\emptyset$ has outer measure $m^*(\emptyset) = 0$.
+
+Let $\epsilon > 0$, and let $B_i$ be an open box with volume less than $\epsilon$. $B_i$ covers the empty set, for all values of $\epsilon$, so $m^*(\emptyset) \leq \epsilon$ for all $\epsilon > 0$. Thus 0 is a lower bound for the volume of the boxes covering $\emptyset$. In fact, it is a least lower bound, because the volume of a box is nonnegative. Thus $0 = \inf\{\vol(B_i): B_i \text{ covers }\emptyset \} = m^*(\emptyset)$.
+
+\subsubsection*{vi - Positivity}
+
+We have $0 \leq m^8(\Omega) \leq + \infty$ for every measurable set $\Omega$.
+
+The outer measure is the infimum of the volume of open boxes that cover a set. The volume of open boxes is nonnegative, meaning that the infimum is $\geq 0$.
+
+\subsubsection*{vii - Monotonicity}
+
+If $A \subset B \subset \R^n$, then $m^*(A) \leq m^*(B)$.
+
+Let $(B_j)$ cover $B$. Then $(B_j)$ covers $A$, and thus the infimum of the volume of boxes that cover $A$ is less than or equal to the infimum of the volume of boxes that cover $B$.
+
+\subsubsection*{x - Countable Sub-additivity}
+
+If $(A_j)_{j \in J}$ are a countable collection of subsets of $\R^n$, then $m^*(\cup_{j \in J} A_j) \leq \sum_{j \in J} m^*(A_j)$.
+
+Fix $\epsilon > 0$. Because $A$ can be covered by a countable number of boxes, the index set can be relabeled as $J = \{j_1, j_2 \dots \}$.
+
+\begin{lemma}
+Let $B$ be an outer measurable set. Then for all $\epsilon > 0$, there exists a countable covering of $B$ by open boxes $(A_j)_{j \in J}$ such that $\sum_{j \in J} \vol(A_j) < m^*(B) + \epsilon$.
+\begin{proof}
+Suppose not. Then there exists an $\epsilon > 0$ such that for all countable coverings of $B$ by open boxes $(A_j)_{j \in J}$, we have $\sum_{j \in J} \vol(A_j) \geq m^*(B) + \epsilon$. Then $m^*(B) + \epsilon$ is a lower bound for the set 
+
+\[
+\{\sum_{j \in J} \vol(A_j): (A_j)_{j \in J} \text{ covers } B; J \text { at most countable}\}
+\]
+which contradicts $m^*(B)$ being the greatest lower bound for this set.
+\end{proof}  
+\end{lemma}
+
+Using the lemma, for all $j \in N$, we can cover $A_j$ with countable open boxes with volume less than $m^*(A_j) + \frac{\epsilon}{2^j}$. Denoting these boxes $B_{jk}$, the $B_{jk}$ cover $\cup_{j \in J} A_j)$. Because the $A_j$ and $B_k$ are countable, the $B_{jk}$ are countable. Thus
+
+\[
+m^*(\cup_{j \in J} A_j) \leq \sum_{j \in \N, k \in \N} \vol(B_{jk})
+< \sum_{j \in \N} (m^*(A_j) + \frac{\epsilon}{2^j}) \leq \sum_{j \in \N} (m^*(A_j)) + \epsilon
+\]
+
+Because $\epsilon > 0$ was arbitrary, the result is proved.
+
+\subsubsection*{viii - Finite Sub-additivity}
+
+If $(A_j)_{j \in J}$ are a finite collection of subsets of $\R^n$, then $m^*(\cup_{j \in J} A_j) \leq \sum_{j \in J} m^*(A_j)$.
+
+This just follows from x.
+
+\subsubsection*{xiii - Translation Invariance}
+
+If $\Omega$ is a subset of $\R^n$ and $x \in \R^n$, then $m^*(x + \Omega) = m^*(\Omega)$.
+
+Let $(A_j)_{j \in J}$ be a countable cover of $\Omega$. Consider $A_j + x$. It has volume
+
+\[
+\vol(A_j + x) = \prod_{i=1}^n ((b_i + x_i) - (a_i + x_i)) = \prod_{i=1}^n (b_i - a_i) = \vol(A_j)
+\]
+
+A covering means that for all $p \in \Omega$, there exists $A_j$ such that $p \in A_j$. For all points $p+x \in \Omega + x$, there exists $A_j + x$ such that $p+x \in A_j + x$. Thus, $(A_j + x)_{j \in J}$ cover $\Omega + x$. Since the volume of $A_j$ is unchanged through translation, the infimum of their union remains unchanged, so $m^*(\Omega+x) = m^*(\Omega)$.
+
+\end{document}
